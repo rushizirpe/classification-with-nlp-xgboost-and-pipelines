@@ -1,6 +1,7 @@
 
 # Wine Variety Classification Using NLP
-This is a Jupyter notebook that demonstrates the use of Natural Language Processing (NLP) and machine learning techniques to classify wine varieties based on their descriptions. The notebook uses XGBoost and Scikit-Learn pipelines for the classification task.
+This is a simple Flask API that provides wine variety classification based on their descriptions. The API uses an XGBoost model and an NLTK tokenizer to perform the classification.
+
 
 # Installation
 To run the notebook, you will need to have Python 3 and Jupyter installed. You can install the required Python packages by running the following command in your terminal:
@@ -10,11 +11,29 @@ To run the notebook, you will need to have Python 3 and Jupyter installed. You c
 This will install all the required packages listed in the requirements.txt file.
 
 # Usage
-To run the notebook, navigate to the directory where the notebook is located and run the following command:
 
-`jupyter notebook`
+To start the Flask server, run the following command in your terminal:
 
-This will open Jupyter in your web browser. You can then navigate to the wine_variety_classification_using_NLP.ipynb notebook and run the cells to reproduce the analysis.
+`
+python app.py
+`
+
+This will start the server at `http://localhost:5000`. You can then make requests to the API using a tool like curl or Postman.
+
+The API accepts POST requests to the `/predict` endpoint with the following payload:
+
+`
+{
+    "description": "This is a wine with a rich aroma of dark fruits and spices, with a long finish."
+}
+`
+The API will respond with a JSON object containing the predicted wine variety as:
+
+`
+{
+    "variety": "Cabernet Sauvignon"
+}
+`
 
 <!--
 # Data
@@ -24,5 +43,6 @@ The dataset used in this analysis is the Wine Reviews dataset from Kaggle. The d
 # License
 This notebook is released under the MIT license. Please see the LICENSE file for more information.
 -->
+
 # Author
-This notebook was created by Rushi Zirpe. Feel free to contact me with any questions or feedback.
+This project was created by Rushi Zirpe. Feel free to contact me with any questions or feedback.
