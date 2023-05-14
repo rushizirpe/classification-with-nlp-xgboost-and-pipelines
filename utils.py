@@ -1,3 +1,9 @@
+import re
+import nltk
+from nltk import word_tokenize
+from nltk.stem import WordNetLemmatizer 
+from sklearn.base import BaseEstimator, TransformerMixin
+from helper import *
 
     
 # lemmatizer + tokenizer (+ stemming) class
@@ -11,6 +17,10 @@ class LemmaTokenizer(object):
         pattern = re.compile(r'[0-9]+|\b[\w]{2,2}\b|[%.,_`!"&?\')({~@;:#}+-]+|\b[\w]{1,1}\b')
         # tokenize document
         doc_tok = word_tokenize(doc)
+        # defining stopwords: using the one that comes with nltk + appending it with words seen from the above evaluation
+        stop_words = stopwords.words('english')
+        stop_append = ['.', ',', '`', '"', "'", '!', ';', 'wine', 'fruit', '%', 'flavour', 'aromas', 'palate']
+        stop_words1 = stop_words + stop_append + grapes + stop_country + stop_province + stop_winery
         #filter out patterns from words
         doc_tok = [x for x in doc_tok if x not in stop_words1]
         doc_tok = [pattern.sub('', x) for x in doc_tok]
@@ -19,6 +29,7 @@ class LemmaTokenizer(object):
         # position tagging
         doc_tagged = nltk.pos_tag(doc_tok)
         # selecting nouns and adjectives
+        defTags = ['NN', 'NNS', 'NNP', 'NNPS', 'JJ', 'JJS', 'JJR', 'RB', 'RBS', 'RBR', 'VB', 'VBD', 'VBG', 'VBN', 'VBP', 'VBZ']
         doc_tagged = [(t[0], t[1]) for t in doc_tagged if t[1] in defTags]
         # preparing lemmatization
         doc = [(t[0], penn_to_wn(t[1])) for t in doc_tagged]
